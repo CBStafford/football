@@ -1,31 +1,103 @@
+// import { NextResponse } from "next/server";
+import { options } from "@/app/api/auth/[...nextauth]/options"
+import { getServerSession } from "next-auth/next"
 
 const url = 'http://localhost:8000/api/v1/';
 
 export async function loginUsers(credentials){
     console.log(credentials)
-    const res = await fetch(url + 'login', {
-    // const res = await fetch(process.env.API_URL + 'login', {    
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-          },
-        body: JSON.stringify(credentials),  
-        next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
-    });
-    console.log(res)
-    return res.json();
+    try{
+        const res = await fetch(url + 'login', {  
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials),  
+            next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
+        });
+        console.log(res)
+
+        return res.json();
+    }catch (err){
+        return err
+    }
+    
 }
 
 export async function registerUsers(credentials){
-    
-    const res = await fetch('http://localhost:8000/api/v1/register', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-          },
-        body: JSON.stringify(credentials),  
-        next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
-    });
 
+        const res = await fetch('http://localhost:8000/api/v1/register', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials),  
+            next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
+        });
+
+        console.log(" ***** " + res + " **** ")
+        return res;
+
+}
+
+export async function getUser(credentials){
+
+    const getSessionStuff = async () => {
+        const session = await getServerSession(options);
+        return session.user.id;
+    };
+
+    console.log(getSessionStuff)
+    
+    try{
+        sessionId = getSessionStuff;
+        const res = await fetch('http://localhost:8000/api/v1/user/'+ sessionId, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // body: JSON.stringify(credentials),  
+            // next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
+        });
+
+            return res.json();
+    }
+    catch(err){
+        console.log(err)
+        // return NextResponse.json(err)
+        return
+    }
+
+}
+
+export async function getProfile(id){
+
+    try{
+        const res = await fetch('http://localhost:8000/api/v1/profile/1', {  //NUT Thisis hard coded 
+        
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                // Authorization : `Bearer ${process.env.LAR_TOKEN}`
+            },
+        });
+
+        // console.log(" ***** " + res + " **** ")
+            return res.json();
+    }
+    catch(err){
+        console.log(err)
+        return NextResponse.json(err)
+        return
+    }
+
+ 
+}
+
+export async function getDog(credentials){
+    const res = await fetch('https://jsonplaceholder.typicode.com/users')
+    // console.log(" #### " + res.json() + " #### ")
     return res.json();
+   
+    
 }

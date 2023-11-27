@@ -1,16 +1,27 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Link from 'next/link'
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
 
 export default async function Home() {
 
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <h1>Home Page</h1>
+  const session = await getServerSession(options)
 
-        
+  return (
+
+    <div className="content">
+      <div className="hero">
+          <h1>Home Page</h1>
       </div>
-    </main>
+      
+      <div className="page-content">
+        <h2>Page Content</h2>
+        <p>
+          {/* {session.user.name} <br />
+          {session.user.email} */}
+          {/* {process.env.LAR_TOKEN} */}
+          
+        </p>
+      </div>
+ 
+    </div>
   )
 }

@@ -2,27 +2,45 @@
 import { useSession } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Container from 'react-bootstrap/Container';
+
+import { getProfile } from "../../../api";
+
+import Profile from "@/components/profiles/listLeagues";
+
+
 
 export default function Component() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const[profileRes, setProfileRes] = useState([])
+
+ 
+  const DashboardProfile = async (e)  => {
+    const profile = await getProfile()
+    // console.log(profile)
+    setProfileRes(profile)
+  }
 
   useEffect(() => {
-    if (status !== "authenticated") {
+    if (status !== "authenticated" && status !== "loading") {
         router.push("/")
         return
       }
-  }, []);
-
-
-console.log(session)
-
-console.log(status)
+    
+     if(status === "authenticated"){
+      DashboardProfile()
+     } 
+  }, [status]);
 
   return(
-    <>
-        <h1>DashBoard!</h1>
-    </>
+    <Container fluid className="page-content" >
+        <h2>Dashboard</h2>
+
+        <Profile leagues = { profileRes } />
+
+
+    </Container>
   )
 }
