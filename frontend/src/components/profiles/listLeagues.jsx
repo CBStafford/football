@@ -1,34 +1,40 @@
 
 import Container from 'react-bootstrap/Container';
-import { useEffect } from "react"
+import Row from 'react-bootstrap/Row';
 
-export default function Profile(leagues) {
+export default function Profile({leagues}) {
 
-  // console.log(leagues.leagues.teams);
+  const user = leagues?.user || [];
+  const teams = leagues?.teams || [];
+  const scores = leagues?.scores || [];
 
-  useEffect(() => {
-
-    console.log(leagues.leagues.teams);
-
-    const user = leagues.leagues.user;
-    const teams = leagues.leagues.teams;
-    const scores = leagues.leagues.scores;
-    
-  }, [leagues]);
-
-
-  // console.log(teams);
+  console.log(leagues);
 
     return(
-      <Container fluid className="page-content" >
-        {/* {teams.map((item, index) => (
-          <div key={index}>
-            <h2>{item.leagueName}</h2> 
-            <strong>{item.teamName}</strong> {item.owner}<br /> 
-            <hr />
-          </div>
-        ))} */}
+      <div>
+        <Row>
+          {teams.map((item, index) => (
+            <div key={index}>
+              <h2>{item.leagueName}</h2> 
+              <strong>{item.teamName}</strong> {item.owner}<br /> 
+              
+              <hr />
+            </div>
+          ))}
+        </Row>
 
-      </Container>
+        <Row>
+            {scores.map((item, index) => (
+              <Row key={index}>
+                <h2> Your picks Week { item.week } Game {item.game} </h2>
+                  Home Score: {item.h_score} Visitor Score: {item.v_score } <br />
+
+                <hr />
+              </Row>  
+            ) )}
+        </Row>
+        
+
+      </div>
     )
 }

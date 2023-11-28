@@ -1,11 +1,12 @@
 // import { NextResponse } from "next/server";
 import { options } from "@/app/api/auth/[...nextauth]/options"
 import { getServerSession } from "next-auth/next"
+import { useSession } from "next-auth/react"
 
 const url = 'http://localhost:8000/api/v1/';
 
 export async function loginUsers(credentials){
-    console.log(credentials)
+    // console.log(credentials)
     try{
         const res = await fetch(url + 'login', {  
             method: "POST",
@@ -15,7 +16,7 @@ export async function loginUsers(credentials){
             body: JSON.stringify(credentials),  
             next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
         });
-        console.log(res)
+        // console.log(res)
 
         return res.json();
     }catch (err){
@@ -35,7 +36,6 @@ export async function registerUsers(credentials){
             next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
         });
 
-        console.log(" ***** " + res + " **** ")
         return res;
 
 }
@@ -46,8 +46,6 @@ export async function getUser(credentials){
         const session = await getServerSession(options);
         return session.user.id;
     };
-
-    console.log(getSessionStuff)
     
     try{
         sessionId = getSessionStuff;
@@ -71,9 +69,8 @@ export async function getUser(credentials){
 }
 
 export async function getProfile(id){
-
     try{
-        const res = await fetch('http://localhost:8000/api/v1/profile/1', {  //NUT Thisis hard coded 
+        const res = await fetch('http://localhost:8000/api/v1/profile/'+ id, {  
         
             method: "GET",
             headers: {

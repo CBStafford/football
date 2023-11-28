@@ -10,16 +10,16 @@ import { getProfile } from "../../../api";
 import Profile from "@/components/profiles/listLeagues";
 
 
-
 export default function Component() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const[profileRes, setProfileRes] = useState([])
-
  
   const DashboardProfile = async (e)  => {
-    const profile = await getProfile()
-    // console.log(profile)
+    // console.log(session.user.id);
+    var uuuuu = session.user.id
+    const profile = await getProfile(uuuuu)
+
     setProfileRes(profile)
   }
 
@@ -32,15 +32,16 @@ export default function Component() {
      if(status === "authenticated"){
       DashboardProfile()
      } 
-  }, [status]);
+  }, [status]);  
 
   return(
-    <Container fluid className="page-content" >
+    <div>
         <h2>Dashboard</h2>
 
-        <Profile leagues = { profileRes } />
+        <Profile  leagues = {  profileRes } />
 
 
-    </Container>
+
+    </div>
   )
 }

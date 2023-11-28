@@ -3,6 +3,9 @@ body{
     height: 100%;
     background: black;
     color:gold;
+    display:flex;
+    flex-direction:column;
+    min-height: 100vh;
 }
 
 .navbar{
@@ -16,39 +19,29 @@ body{
     width: 100%;
 }
 
-.logging {
-    text-align: right;
-    flex: auto;
-}
-
-.half-half{
-    background: navy;
-    color: white;
-}
-
 .page-content{
-    padding: 5rem;
-    /* min-height: calc(85vh - 70px); */
+    flex-grow: 1;
 }
 
 
-.footer{
+footer{
   background-color: burlywood;
-  position: absolute;
-  bottom: 0;
   width: 100%;
 }
 
 /* ***********************  Responsive  ***************************** */
-@media (min-width: 428px) and (max-width: 1024px) {
+@media (min-width: 429px) and (max-width: 1024px) {
     h2 { font-size: 36px; 
          color:red;
       }
+    
   }
-  
+
+
   @media (min-width: 0px) and (max-width: 428px) {
-    .grid-container { 
+    /* .grid-container { 
       display: contents;
-    }
+    } */
+
      
   }

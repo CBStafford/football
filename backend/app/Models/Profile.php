@@ -21,13 +21,13 @@ class Profile extends Model
         return $profileArr ;
     }
 
-    private function getProfileData($user_id){
+    private function getProfileData($id){
         $profile = DB::select(
-            "select name, email
+            "select id, name, email
             from users
             where id = ?",
 
-            [$user_id]            
+            [$id]            
         );
 
 

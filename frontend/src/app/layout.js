@@ -2,8 +2,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Container from 'react-bootstrap/Container';
 
 import AuthProvider from '../context/authProvider'
+
 import NavBar from '@/components/navBar'
 
 import Footer from "@/components/footer"
@@ -21,12 +23,14 @@ export default function RootLayout({ children }) {
 
       <body className={inter.className}>
         <AuthProvider>
+          
           <NavBar/>
-          {children}
+          <Container className='page-content'>
+            {children}          
+          </Container>
+          <Footer />
+          
         </AuthProvider>
-        <div className="footer">
-            <Footer />
-        </div>
       </body>
     </html>
   )

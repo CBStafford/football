@@ -18,9 +18,7 @@ export default function RegisterForm() {
         const credentials = {name, email, password, password_confirmation}
         // console.log(credentials)
     
-        const res = await registerUsers(credentials)
-
-        console.log(res + "#!#!#!#!#!#!#")
+        const res = await registerUsers(credentials);
 
         if (res.status === 200) {
           router.refresh()

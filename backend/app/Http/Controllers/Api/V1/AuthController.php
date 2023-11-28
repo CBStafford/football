@@ -24,6 +24,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        // print_r($user);
 
         //NOTE this->success is from the HttpResponses trait.
         return $this->success([

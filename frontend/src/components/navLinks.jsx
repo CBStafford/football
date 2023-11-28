@@ -15,10 +15,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export default function NavLinks(){
     const { data: session, status } = useSession();
-    // const status = "authenticated";
     
     const HandleLogOut = () => {
         // console.log("Clicked!!!!!")
+        process.env.LAR_TOKEN = null;
+        process.env.LAR_USER = null;
         signOut({ redirect: true, callbackUrl:"/"})
     }
  
