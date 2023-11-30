@@ -80,12 +80,14 @@ export async function getProfile(id){
         });
 
         // console.log(" ***** " + res + " **** ")
+
+
             return res.json();
     }
     catch(err){
         console.log(err)
         return NextResponse.json(err)
-        return
+        // return
     }
 
  

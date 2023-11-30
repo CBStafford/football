@@ -15,8 +15,13 @@ class Profile extends Model
         $profileArr =array();
 
         $profileArr['user'] = $this->getProfileData($id);
-        $profileArr['teams'] = $this->getTeams($id);
+        $teams =  $this->getTeams($id);
+        // print_r($teams);
+        $profileArr['teams'] = $teams['teams'];
+        $profileArr['lteams'] = $teams['lteams'];
         $profileArr['scores']= $this->getScores($id);
+        $profileArr['officialscores']= $this->getOfficialScores();
+        
 
         return $profileArr ;
     }
@@ -30,12 +35,12 @@ class Profile extends Model
             [$id]            
         );
 
-
         return $profile;
     }
 
     private function getTeams($user_id){
-        $league = DB::select(
+        $lteams = [];
+        $teams = DB::select(
             "select 
             t.name as teamName, t.display_name as owner,
             l.id as leagueId, l.name as leagueName
@@ -46,12 +51,29 @@ class Profile extends Model
             [$user_id]            
         );
 
+        foreach($teams as $key => $team){
+            $x = $this->getleague($team->leagueId);
+            array_push($lteams, $x);
+        }
+        
+        return ['teams'=> $teams, 'lteams'=> $lteams];
+    }   
+
+    private function getleague($league_id){
+        $league = DB::select(
+            "select 
+            t.name as teamName, t.display_name as owner, league_id 
+            from teams as t
+            where league_id = ?",
+
+            [$league_id]            
+        );
 
         return $league;
     }   
 
     private function getScores($user_id){
-        $league = DB::select(
+        $scores = DB::select(
             "select year, week, game, v_score, h_score, total, spread, winner, locked
             from player_games
             where user_id = ?",
@@ -59,9 +81,17 @@ class Profile extends Model
             [$user_id]            
         );
 
-
-        return $league;
+        return $scores;
     }   
+
+    private function getOfficialScores(){
+        $scores = DB::select(
+            "select year, week, game, v_score, h_score, total, spread, winner
+             from nfl_games"           
+        );
+
+        return $scores;
+    } 
 
 
 }

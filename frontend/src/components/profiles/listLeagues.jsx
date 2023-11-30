@@ -1,29 +1,37 @@
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Accordion from 'react-bootstrap/Accordion';
+
+import LeagueTeams from './leagueTeams';
 
 export default function Profile({leagues}) {
 
   const user = leagues?.user || [];
   const teams = leagues?.teams || [];
-  const scores = leagues?.scores || [];
+  const lteams = leagues?.lteams || [];
+  // const scores = leagues?.scores || [];
 
-  console.log(leagues);
+  // console.log(lteams);
 
     return(
       <div>
         <Row>
           {teams.map((item, index) => (
             <div key={index}>
-              <h2>{item.leagueName}</h2> 
-              <strong>{item.teamName}</strong> {item.owner}<br /> 
-              
-              <hr />
+            <Accordion defaultActiveKey="1">
+              <Accordion.Item eventKey={index} >
+                <Accordion.Header>{item.leagueName} ({item.owner}) </Accordion.Header>
+                <Accordion.Body> 
+                  <LeagueTeams lID={item.leagueId} lTeams={lteams} />
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
             </div>
           ))}
         </Row>
 
-        <Row>
+        {/* <Row>
             {scores.map((item, index) => (
               <Row key={index}>
                 <h2> Your picks Week { item.week } Game {item.game} </h2>
@@ -32,7 +40,7 @@ export default function Profile({leagues}) {
                 <hr />
               </Row>  
             ) )}
-        </Row>
+        </Row> */}
         
 
       </div>
