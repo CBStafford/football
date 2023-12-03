@@ -10,12 +10,12 @@ export default function LeagueTeams({lID, lTeams}) {
     // console.log(team[index].league_id)
 
 return(
-    <>
+    <div className="LeagueTeams">
         {leagueTeams.map((team, index)=>(
             team[index].league_id == lID ? 
             team.map((t, i)=> (
                 <div key={i}>
-                    {t.teamName } <sub>({t.owner})</sub>
+                    {t.teamName } <sup>({t.owner})</sup>
                 </div>
             ))
             :
@@ -23,7 +23,7 @@ return(
         ))}
 
       
-    </>
+    </div>
 )
 
 

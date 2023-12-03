@@ -81,7 +81,6 @@ export async function getProfile(id){
 
         // console.log(" ***** " + res + " **** ")
 
-
             return res.json();
     }
     catch(err){

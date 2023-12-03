@@ -4,10 +4,13 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 import { getProfile } from "../../../api";
 
 import Profile from "@/components/profiles/listLeagues";
+import PicksNScores from "@/components/profiles/picksNScores";
+import PicksTab from "@/components/profiles/tabs";
 
 
 export default function Component() {
@@ -34,13 +37,27 @@ export default function Component() {
      } 
   }, [status]);  
 
+  // console.log(profileRes);
+
   return(
     <div>
         <h2>Dashboard</h2>
-
-        <Profile  leagues = {  profileRes } />
-
-
+        <Container >
+          <Row >
+            <Profile  leagues = {  profileRes } />
+          </Row>
+          {/* <Row>
+            <div className="mt-3" >
+              <div className="highlight"> You Picks </div>
+              <PicksNScores picks={profileRes.scores } officialscores={profileRes.officialscores} />
+            </div>
+          </Row> */}
+          <Row>
+          <div className="mt-3" >
+            <PicksTab  picks={profileRes.scores } officialscores={profileRes.officialscores}  />
+          </div>  
+          </Row>
+        </Container>
 
     </div>
   )

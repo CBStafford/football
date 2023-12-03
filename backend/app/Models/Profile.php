@@ -86,8 +86,9 @@ class Profile extends Model
 
     private function getOfficialScores(){
         $scores = DB::select(
-            "select year, week, game, v_score, h_score, total, spread, winner
-             from nfl_games"           
+            "select year, week, game, visitor, v_score, home, h_score, total, spread, winner
+             from nfl_games
+             where week in (1, 2 )"           
         );
 
         return $scores;
