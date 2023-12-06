@@ -1,15 +1,17 @@
 'use client'
 import { useSession } from "next-auth/react"
+import Link from 'next/link'
 
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 import { getProfile } from "../../../api";
 
 import Profile from "@/components/profiles/listLeagues";
-import PicksNScores from "@/components/profiles/picksNScores";
 import PicksTab from "@/components/profiles/tabs";
 
 
@@ -37,6 +39,8 @@ export default function Component() {
      } 
   }, [status]);  
 
+
+  localStorage.setItem("profileStuff", JSON.stringify(profileRes));
   // console.log(profileRes);
 
   return(
@@ -46,17 +50,11 @@ export default function Component() {
           <Row >
             <Profile  leagues = {  profileRes } />
           </Row>
-          {/* <Row>
-            <div className="mt-3" >
-              <div className="highlight"> You Picks </div>
-              <PicksNScores picks={profileRes.scores } officialscores={profileRes.officialscores} />
-            </div>
-          </Row> */}
-          <Row>
-          <div className="mt-3" >
+
+          <Row className="mt-3">
             <PicksTab  picks={profileRes.scores } officialscores={profileRes.officialscores}  />
-          </div>  
           </Row>
+
         </Container>
 
     </div>

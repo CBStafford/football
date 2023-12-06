@@ -1,8 +1,11 @@
 
+import { useState, useEffect } from 'react';
+import Link from 'next/link'
+
 import Nav from 'react-bootstrap/Nav';
-import { useState } from 'react';
-// import PicksNScores from "@/components/profiles/picksNScores";
 import PicksTabItems from './tabItems';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 
 export default function PicksTab({picks, officialscores}){
@@ -11,12 +14,15 @@ export default function PicksTab({picks, officialscores}){
     const oScore = officialscores || [];
 
     const [tabID, setTabID] = useState(1);
+    const [addPicksAddress , setAddPicksAddress] = useState("");
 
     const toggleTab = (tabNo) =>{
         setTabID(tabNo);
     }
 
-    // console.log(pScore);
+    useEffect(() => {
+        setAddPicksAddress("/addpicks?week=" + tabID)
+      }, [tabID]); 
 
     return(
         <div className="picksTabs">
@@ -37,6 +43,12 @@ export default function PicksTab({picks, officialscores}){
             <div>
                 <PicksTabItems picks={pScore} officialscores={oScore} week={tabID} />
             </div>
+            
+            <Row className="mt-3">
+            <Button>
+                <Link href={addPicksAddress} style={{color : 'white'}} >Make your picks</Link>
+            </Button>
+          </Row>
         </div>
     );
 

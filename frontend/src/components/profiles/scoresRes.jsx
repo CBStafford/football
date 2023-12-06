@@ -26,7 +26,7 @@ export function Scores({officialscores, week}){
 
 
 export function Picks({picks, officialscores, week}){
-    console.log(week)
+    // console.log(week)
     const oScore = officialscores.filter((w)=> {
         return w.week === week
     });
@@ -35,13 +35,10 @@ export function Picks({picks, officialscores, week}){
         return w.week === week
     });
 
-    console.log(oScore)
-    console.log(pScore)
+    // console.log(oScore)
+    // console.log(pScore)
 
     const CheckWin = (score, index) => {
-        // console.log(oScore[index])
-        // console.log(oScore[index].winner)
-        // console.log(score )
         if(score.winner === oScore[index].winner){
             return(
                 <td key={index} className="winner-pick">
