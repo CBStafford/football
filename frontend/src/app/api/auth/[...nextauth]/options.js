@@ -16,7 +16,7 @@ export const options = {
 
               const res = await loginUsers(credentials)
 
-              console.log(res);
+              // console.log(res);
 
               if (res.status === 200) {     
                 const user = res.data.user
@@ -40,8 +40,13 @@ export const options = {
         signIn: '/login',
       },
       callbacks:{
-        async session({session, res}){
+        // async jwt({token, user}){
+        //   return{...token, ...user};
+        // },
+        async session({session, user}){
           session.user.id = process.env.LAR_USER;
+          session.accessToken = process.env.LAR_TOKEN;
+          // session.user = token;
           return session;
         },
       },

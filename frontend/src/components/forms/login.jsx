@@ -18,6 +18,7 @@ export default function LoginForm(){
 
     const loginUser = async (e) => {
         e.preventDefault()
+        localStorage.clear();
         const res = signIn("credentials", {
             ...data,
             redirect: true,

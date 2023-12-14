@@ -18,6 +18,7 @@ export default function NavLinks(){
     
     const HandleLogOut = () => {
         // console.log("Clicked!!!!!")
+        localStorage.clear();
         process.env.LAR_TOKEN = null;
         process.env.LAR_USER = null;
         signOut({ redirect: true, callbackUrl:"/"})

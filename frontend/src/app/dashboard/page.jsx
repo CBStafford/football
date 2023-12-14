@@ -21,9 +21,10 @@ export default function Component() {
   const[profileRes, setProfileRes] = useState([])
  
   const DashboardProfile = async (e)  => {
-    // console.log(session.user.id);
+    // console.log(session);
     var uuuuu = session.user.id
-    const profile = await getProfile(uuuuu)
+    var acToken = session.accessToken
+    const profile = await getProfile(uuuuu, acToken)
 
     setProfileRes(profile)
   }

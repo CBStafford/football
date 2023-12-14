@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation"
+
 import { useState } from "react"
 import { useSearchParams } from 'next/navigation'
 
@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation'
 import { registerUsers } from "api"
 
 export default function SubmitPicksForm({profileData}) {
-    const router = useRouter()
+
     const searchParams = useSearchParams()
-  
+
     // const [winner, setWinner] = useState('')
     const [V_score, setV_score] = useState([])
     const [h_score, setH_score] = useState([])
@@ -21,7 +21,7 @@ export default function SubmitPicksForm({profileData}) {
 
         alert("Submitted!!!!");
     
-        // console.log(credentials)
+        console.log(V_score);
     
         // const res = await registerUsers(credentials); //nut
 
@@ -32,11 +32,11 @@ export default function SubmitPicksForm({profileData}) {
     }
    
     const score = profileData.filter((w)=> {
-        return w.week == week
+        return w.week == 1
     }); 
 
     const formItems = (index) => {
-        console.log(index)
+        // console.log(index)
         return(
             <h1>
                 Pick {index} <br />
@@ -52,8 +52,9 @@ export default function SubmitPicksForm({profileData}) {
                 <div className="picksTable">
                     <table>
                         <thead>
+                            <tr>
                             {score.map((item, index)=>(
-                                console.log(item),
+                                // console.log(item),
                                 <th className="scoresTableHeader" key={index}>
                                 <label htmlFor="name" className="form-label">{item.visitor} </label>
                                 <input 
@@ -61,9 +62,10 @@ export default function SubmitPicksForm({profileData}) {
                                     type="text" 
                                     className="form-control" 
                                     id="visitor" 
-                                    onChange={(e) => setName(e.target.value)}
-                                    value={"visitor"+{index}}
+                                    onChange={(e) => setV_score(e.target.value)}
+                                    // value={"visitor"+{index}}
                                 />
+                                
                                 <br /> @ <br />
                                 <label htmlFor="name" className="form-label"> {item.home}</label>
                                 <input 
@@ -71,11 +73,12 @@ export default function SubmitPicksForm({profileData}) {
                                     type="text" 
                                     className="form-control" 
                                     id="home" 
-                                    onChange={(e) => setName(e.target.value)}
-                                    value={"home"+{index}}
+                                    onChange={(e) => setH_score(e.target.value)}
+                                    // value={"home"+{index}}
                                 />
                                 </th>
                             ))}
+                            </tr>
                         </thead>
                     
 

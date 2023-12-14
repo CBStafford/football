@@ -1,7 +1,6 @@
 // import { NextResponse } from "next/server";
 import { options } from "@/app/api/auth/[...nextauth]/options"
 import { getServerSession } from "next-auth/next"
-import { useSession } from "next-auth/react"
 
 const url = 'http://localhost:8000/api/v1/';
 
@@ -68,14 +67,14 @@ export async function getUser(credentials){
 
 }
 
-export async function getProfile(id){
+export async function getProfile(id, acToken){
     try{
         const res = await fetch('http://localhost:8000/api/v1/profile/'+ id, {  
         
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization : `Bearer ${process.env.LAR_TOKEN}`
+                'Authorization' : `Bearer ${acToken}`
             },
         });
 
@@ -92,10 +91,23 @@ export async function getProfile(id){
  
 }
 
-export async function getDog(credentials){
-    const res = await fetch('https://jsonplaceholder.typicode.com/users')
-    // console.log(" #### " + res.json() + " #### ")
-    return res.json();
-   
-    
+export async function setPicks(data, acToken, userId){
+    try{
+        const res = await fetch('http://localhost:8000/api/v1/set-score', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${acToken}`
+            },
+            body: JSON.stringify(data),  
+            next:{ revalidate:0 } //use 0 (zero) to stop cacheing the data.
+        });
+
+        return res;
+    }
+    catch(err){
+        console.log(err)
+        return NextResponse.json(err)
+        // return
+    }
 }

@@ -29,18 +29,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function(){
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::get('/user', [UserController::class, 'index']);
-    Route::get('/user/{id}', [UserController::class, 'show']);
+    // Route::get('/user', [UserController::class, 'index']);
+    // Route::get('/user/{id}', [UserController::class, 'show']);
 
     Route::get('/official-scores', [NFLGamesController::class, 'index']);
     Route::get('/official-scores-week/{week}', [NFLGamesController::class, 'showWeek']);
 
-    Route::get('/profile/{id}', [ProfileController::class, 'show']);
 });
 
 //NOTE Protected Routes
 Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'middleware'=>'auth:sanctum'], function(){
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
+
     Route::post('/create-league', [LeagueController::class, 'store']);
 
     Route::post('/create-team', [TeamController::class, 'store']);
@@ -49,6 +52,6 @@ Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'middl
     Route::get('/team-record', [PlayerGamesController::class, 'show']);
     Route::post('/set-score', [PlayerGamesController::class, 'store']);
 
-    // Route::get('/profile/{id}', [ProfileController::class, 'show']);
+    Route::get('/profile/{id}', [ProfileController::class, 'show']);
     
 });
