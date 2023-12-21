@@ -21,7 +21,7 @@ export default function SubmitPicksForm({profileData}) {
 
         alert("Submitted!!!!");
     
-        console.log(V_score);
+        // console.log(V_score);
     
         // const res = await registerUsers(credentials); //nut
 

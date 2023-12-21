@@ -4,7 +4,7 @@ import { useState } from "react";
 export function Scores({officialscores, week}){
     const oScore = officialscores || [];
 
-    // console.log(week);
+    // console.log(oScore);
 
     return(
         <>
@@ -12,6 +12,11 @@ export function Scores({officialscores, week}){
         {oScore.map((item, index) => (
             item.week == week ? 
                 <th key={index} className="scoresTableHeader">
+                    <div className="kickoff">
+                    {item.date} <br/>
+                    {item.Kickoff}<br/>
+                    {item.tv}
+                    </div>
                 {item.visitor} <br/> {item.v_score}
                 <br/> @ <br/>
                 {item.home} <br/> {item.h_score}
@@ -60,6 +65,7 @@ export function Picks({picks, officialscores, week}){
                 </td>
             )
         }
+
         
     }
 

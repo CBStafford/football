@@ -23,14 +23,14 @@ class StorePlayerGamesRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer'],
-            'year' => ['required', 'date'],
+            // 'year' => ['required', 'date'],
             'week' => ['required', 'integer'], 	
             'game' => ['required', 'integer'],	
             'v_score' => ['required', 'integer'], 	
             'h_score' => ['required', 'integer'], 	
-            'total' => ['required', 'integer'],
-            'spread' => ['required', 'integer'], 	
-            'winner' => ['required', 'string', 'max:1'],		
+            // 'total' => ['required', 'integer'],
+            // 'spread' => ['required', 'integer'], 	
+            // 'winner' => ['required', 'string', 'max:1'],		
         ];
     }
 

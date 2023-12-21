@@ -7,7 +7,7 @@ import CarouselStuff from '../components/CarouselStuff/carouselStuff';
 export default async function Home() {
 
   const session = await getServerSession(options)
-  console.log("! " + session + " !" );
+  // console.log("! " + session + " !" );
   
 
   return (

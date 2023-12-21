@@ -7,7 +7,7 @@ export default function CheckSession() {
 
         if(!session){
             router.push("/")
-            console.log("No Session!!")
+            // console.log("No Session!!")
             return
         }
 

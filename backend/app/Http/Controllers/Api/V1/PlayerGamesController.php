@@ -36,20 +36,40 @@ class PlayerGamesController extends Controller
         return $res;
     }
 
-    public function store(StorePlayerGamesRequest $request)
+    public function store(Request $request)
     {
-        try{
+        $jsonData = $request->json()->all();
 
-            $playerGames = PlayerGames::create($request->validated());
+        // var_dump($jsonData[0]['data']);
+
+        $userID = $jsonData[0]['userId'];
+        $week = $jsonData[0]['week'];
+        $data = $jsonData[0]['data'];
+        // print_r($data);
+
+        foreach($data as $key => $value){
+            $setScores = new PlayerGames();
+            $game = ($key + 1);
+            $setScores->SetScores($value,$userID,$week, $game );
+            // echo $value['vScore'];
+            // echo $value['hScore'];
+        }
+
+        return 'IT WORKED!!!!!';
+
+        // try{
+
+        //     $playerGames = PlayerGames::create($request->validated());
     
-            //NOTE - Fill the array with data, its required
-             return $this->success([
-                "Your picks have been saved."
-            ]);
+        //     //NOTE - Fill the array with data, its required
+        //      return $this->success([
+        //         "Your picks have been saved."
+        //     ]);
     
-            }catch(Exception $e){
-                echo "This is an Exception!!!!! \n" . $e->getMessage();
-            }
+        //     }
+        // catch(Exception $e){
+        //         echo "This is an Exception!!!!! \n" . $e->getMessage();
+        //     }
     }
 
     public function update($week)
